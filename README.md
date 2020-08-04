@@ -30,3 +30,4 @@ The columns we care about are defined below in the “Columns” section.
 - There are only 3 valid providers: providerA (has all columns), providerB (has less columns) and providerC (has less columns but one extra that is not expected and the code will ignore)
 - The csv will follow the columns layout of the provider included in the request
 - If there any error with the csv file (wrong format, invalid column type), nothing will be saved in the data base
+- You can find an example CSV file for each provider in `tests/mocks/`
