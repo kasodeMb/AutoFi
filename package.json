@@ -1,0 +1,49 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "prestart": "babel ./src --out-dir build",
+    "build": "node ./build/bin/www",
+    "serve": "nodemon --exec babel-node ./src/bin/www",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "pretty": "prettier --write '**/*.{js,json}' '!node_modules/**'",
+    "postpretty": "yarn lint --fix",
+    "test-jest": "jest --silent --coverage --verbose true",
+    "test:debug": "jest --debug --coverage --verbose true",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "csv-parser": "2.3.3",
+    "debug": "2.6.9",
+    "express": "4.16.1",
+    "http-errors": "1.6.3",
+    "mongoose": "5.9.27",
+    "morgan": "1.9.1",
+    "multer": "1.4.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.10.5",
+    "@babel/core": "7.11.0",
+    "@babel/node": "7.10.5",
+    "@babel/plugin-transform-runtime": "7.11.0",
+    "@babel/preset-env": "7.11.0",
+    "@babel/register": "7.10.5",
+    "@babel/runtime": "7.11.0",
+    "@shelf/jest-mongodb": "1.2.1",
+    "babel-eslint": "10.0.2",
+    "babel-jest": "26.2.2",
+    "eslint": "7.6.0",
+    "eslint-config-airbnb-base": "14.2.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-babel": "5.3.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-simple-import-sort": "5.0.1",
+    "jest": "26.2.2",
+    "mongodb-memory-server": "6.6.3",
+    "nodemon": "2.0.4",
+    "prettier": "2.0.5",
+    "supertest": "4.0.2"
+  }
+}

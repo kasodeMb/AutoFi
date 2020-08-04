@@ -1,0 +1,17 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "semi": false,
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "options": {
+        "bracketSpacing": true,
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "all"
+      }
+    },
+  ]
+}
