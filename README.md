@@ -14,16 +14,16 @@ into either a file or - as a stretch goal - into an in-memory database (see belo
 The columns we care about are defined below in the “Columns” section.
 
 ## Columns
-● UUID
-● VIN (alphanumerical vehicle id)
-● Make
-● Model
-● Mileage
-● Year
-● Price
-● Zip Code
-● Create Date
-● Update Date
+- UUID
+- VIN (alphanumerical vehicle id)
+- Make
+- Model
+- Mileage
+- Year
+- Price
+- Zip Code
+- Create Date
+- Update Date
 
 ## Code Assumptions
 
