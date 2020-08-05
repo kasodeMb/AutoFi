@@ -1,0 +1,33 @@
+{
+    "providerA": [
+      "uuid",
+      "vin",
+      "make",
+      "model",
+      "mileage",
+      "year",
+      "price",
+      "zip_code",
+      "create_date",
+      "update_date"
+    ],
+    "providerB": [
+      "uuid",
+      "vin",
+      "model",
+      "mileage",
+      "year",
+      "price",
+      "create_date",
+      "update_date"
+    ],
+    "providerC": [
+      "uuid",
+      "vin",
+      "extra_field",
+      "mileage",
+      "year",
+      "price",
+      "zip_code"
+    ]
+  }

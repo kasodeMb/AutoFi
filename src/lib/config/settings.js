@@ -1,36 +1,11 @@
-export const CSV_LAYOUTS = {
-  providerA: [
-    'uuid',
-    'vin',
-    'make',
-    'model',
-    'mileage',
-    'year',
-    'price',
-    'zip_code',
-    'create_date',
-    'update_date',
-  ],
-  providerB: [
-    'uuid',
-    'vin',
-    'model',
-    'mileage',
-    'year',
-    'price',
-    'create_date',
-    'update_date',
-  ],
-  providerC: [
-    'uuid',
-    'vin',
-    'extra_field',
-    'mileage',
-    'year',
-    'price',
-    'zip_code',
-  ],
-}
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+export const { MONGO_DB_URI } = process.env
+
+// eslint-disable-next-line global-require
+export const CSV_LAYOUTS = require('../../../provider_layouts.json')
 
 export const DEFAULT_CSV_LAYOUT = {
   uuid: String,
@@ -43,4 +18,4 @@ export const DEFAULT_CSV_LAYOUT = {
   zip_code: Number,
   create_date: Date,
   update_date: Date,
-}
+} 
