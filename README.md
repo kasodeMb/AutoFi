@@ -26,8 +26,25 @@ The columns we care about are defined below in the “Columns” section.
 - Update Date
 
 ## Code Assumptions
-
-- There are only 3 valid providers: providerA (has all columns), providerB (has less columns) and providerC (has less columns but one extra that is not expected and the code will ignore)
+- There are only 3 valid providers setup in the config file (provider_layouts.json): providerA (has all columns), providerB (has less columns) and providerC (has less columns but one extra that is not expected and the code will ignore)
 - The csv will follow the columns layout of the provider included in the request
 - If there any error with the csv file (wrong format, invalid column type), nothing will be saved in the data base
 - You can find an example CSV file for each provider in `tests/mocks/`
+
+## Available Scripts
+In the project directory, you can run:
+
+### yarn serve
+Runs the app in the development mode. The app will reload if you make edits.
+
+### yarn test
+Launches the test runner.
+
+### yarn build
+Builds the app for production.
+
+## Known issues
+When using `yarn serve` to run the app, a new mongo_db instance will be created every time a file changes due to live reload. As a workaround you can manually set the mongo_db uri of an existing instance running in the `.env.` file
+```
+MONGO_DB_URI=mongodb://127.0.0.1:61721/AutoFi-Dev?
+```
