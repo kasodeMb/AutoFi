@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import { VehicleModel } from '../../../src/lib/db/models/vehicles'
 import { server } from '../../setup'
 
-describe('Vehicles Service', () => {
+describe('Vehicles Service Fail Scenarios', () => {
   test('Should fail when CSV file is missing', async () => {
     // Call
     const resp = await server.post('/vehicles')
@@ -36,11 +36,54 @@ describe('Vehicles Service', () => {
     expect(resp.status).toBe(400)
   })
 
+  test('Should fail if colums are of an invalid type', async () => {
+    // Mocks
+    const spyInsertMany = jest
+      .spyOn(VehicleModel, 'insertMany')
+      .mockRejectedValue(new mongoose.Error.ValidationError())
+    spyInsertMany.mockClear()
+
+    // Call
+    const resp = await server
+      .post('/vehicles')
+      .attach('file', 'tests/mocks/providerC.csv')
+      .field('provider', 'providerC')
+
+    // Asserts
+    expect(resp.text).toBe(
+      '{"message":"Validation Error In Provided CSV File."}'
+    )
+    expect(resp.status).toBe(400)
+    expect(spyInsertMany).toHaveBeenCalledTimes(1)
+  })
+
+  test('Should fail if an unexpected error happens while saving into the db', async () => {
+    // Mocks
+    const spyInsertMany = jest
+      .spyOn(VehicleModel, 'insertMany')
+      .mockRejectedValue(new Error('test'))
+    spyInsertMany.mockClear()
+
+    // Call
+    const resp = await server
+      .post('/vehicles')
+      .attach('file', 'tests/mocks/providerC.csv')
+      .field('provider', 'providerC')
+
+    // Asserts
+    expect(resp.text).toBe('{"message":"Unexpected Error"}')
+    expect(resp.status).toBe(500)
+    expect(spyInsertMany).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('Vehicles Service Success Scenarios', () => {
   test('Should succeed when with valid options', async () => {
     // Mocks
     const spyInsertMany = jest
       .spyOn(VehicleModel, 'insertMany')
       .mockResolvedValue([{}, {}])
+    spyInsertMany.mockClear()
 
     // Call
     const resp = await server
@@ -146,45 +189,5 @@ describe('Vehicles Service', () => {
     expect(resp.status).toBe(200)
     expect(spyInsertMany).toHaveBeenCalledTimes(1)
     expect(spyInsertMany).toHaveBeenCalledWith(insertManyData)
-  })
-
-  test('Should fail if colums are of an invalid type', async () => {
-    // Mocks
-    const spyInsertMany = jest
-      .spyOn(VehicleModel, 'insertMany')
-      .mockRejectedValue(new mongoose.Error.ValidationError())
-    spyInsertMany.mockClear()
-
-    // Call
-    const resp = await server
-      .post('/vehicles')
-      .attach('file', 'tests/mocks/providerC.csv')
-      .field('provider', 'providerC')
-
-    // Asserts
-    expect(resp.text).toBe(
-      '{"message":"Validation Error In Provided CSV File."}'
-    )
-    expect(resp.status).toBe(400)
-    expect(spyInsertMany).toHaveBeenCalledTimes(1)
-  })
-
-  test('Should fail if an unexpected error happens while saving into the db', async () => {
-    // Mocks
-    const spyInsertMany = jest
-      .spyOn(VehicleModel, 'insertMany')
-      .mockRejectedValue(new Error('test'))
-    spyInsertMany.mockClear()
-
-    // Call
-    const resp = await server
-      .post('/vehicles')
-      .attach('file', 'tests/mocks/providerC.csv')
-      .field('provider', 'providerC')
-
-    // Asserts
-    expect(resp.text).toBe('{"message":"Unexpected Error"}')
-    expect(resp.status).toBe(500)
-    expect(spyInsertMany).toHaveBeenCalledTimes(1)
   })
 })

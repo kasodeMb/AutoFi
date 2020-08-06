@@ -4,8 +4,18 @@ import mongoose from 'mongoose'
 
 import { MONGO_DB_URI } from '../config/settings'
 
+/**
+ * Initialize Mongoose
+ * @exports
+ * @returns {Promise}
+ */
 export const Mongoose = () => {
   return new Promise((resolve) => {
+    /**
+     * Connect Mongoose
+     * @param {string} mongoUri - URI to mongo db
+     * @returns {Promise}
+     */
     const connect = (mongoUri) => {
       const mongooseOpts = {
         useNewUrlParser: true,
@@ -13,7 +23,7 @@ export const Mongoose = () => {
       }
 
       mongoose.connect(mongoUri, mongooseOpts)
-  
+
       mongoose.connection.on('error', (e) => {
         if (e.message.code === 'ETIMEDOUT') {
           console.log(e)
@@ -21,7 +31,7 @@ export const Mongoose = () => {
         }
         console.log(e)
       })
-  
+
       mongoose.connection.once('open', () => {
         console.log(`MongoDB successfully connected to ${mongoUri}`)
         resolve()
@@ -34,15 +44,13 @@ export const Mongoose = () => {
           dbName: 'AutoFi-Dev',
         },
       })
-   
+
       mongoose.Promise = Promise
       mongoServer.getUri().then((mongoUri) => {
-        connect(mongoUri) 
+        connect(mongoUri)
       })
     } else {
-      connect(MONGO_DB_URI) 
+      connect(MONGO_DB_URI)
     }
-    
   })
-  
 }

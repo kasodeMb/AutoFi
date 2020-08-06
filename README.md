@@ -28,8 +28,29 @@ The columns we care about are defined below in the “Columns” section.
 ## Code Assumptions
 - There are only 3 valid providers setup in the config file (provider_layouts.json): providerA (has all columns), providerB (has less columns) and providerC (has less columns but one extra that is not expected and the code will ignore)
 - The csv will follow the columns layout of the provider included in the request
-- If there any error with the csv file (wrong format, invalid column type), nothing will be saved in the data base
+- If there is any error with the csv file (wrong format, invalid column type), nothing will be saved into the data base
 - You can find an example CSV file for each provider in `tests/mocks/`
+
+## Endpoints
+
+### POST /vehicles
+Params (multipart/form-data)
+```
+provider="ProviderA"
+file="test/mocks/providerA.csv"
+```
+Example Result Sucess (Status Code 200)
+```
+{
+    "message": "12 vehicles were successfuly saved."
+}
+```
+Example Result Error (Status Code 400)
+```
+{
+    "message": "Missing CSV File"
+}
+```
 
 ## Available Scripts
 In the project directory, you can run:
